@@ -41,9 +41,12 @@ def main():
 	    f.close()  
 
 	# Si la carpeta no esta creada, genero la carpeta donde se almacenaran los graficos producidos por el programa
-	dir2 = '/home/donvito/Escritorio/metadatos/diagramas/'
-	if not os.path.exists(dir2):
-		os.mkdir(dir2)
+	dir = 'diagramas'
+	if not os.path.exists(dir):
+		os.mkdir(dir)
+	if not os.path.exists('diagramas/opreturn'):
+		os.mkdir('diagramas/opreturn')
+		
 	# Ordeno los meses e imprimimos el numero de transacciones  de cada uno de ellos
 	for fecha, transaccion in sorted(transacciones_bloque.items()):
 		fechas.append(fecha)

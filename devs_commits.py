@@ -15,7 +15,7 @@ def main():
 	acumula_commits = []
 	
 	# Los datos que he parseado los he obtenido desde la web https://bitcoin.org/en/development#dev-communities
-	with open('/home/donvito/Escritorio/metadatos/data/devs_commits.data') as f:
+	with open('data/devs_commits.data') as f:
 		while True:
 			line = f.readline()
 			# Longitud cero indica final de fichero
@@ -33,9 +33,11 @@ def main():
 	print 'Commits Totales:', commits_totales
 
 	# Si la carpeta no esta creada, genero la carpeta donde se almacenaran los graficos producidos por el programa
-	dir = '/home/donvito/Escritorio/metadatos/diagramas/descentralizacion'
+	dir = 'diagramas'
 	if not os.path.exists(dir):
 		os.mkdir(dir)
+	if not os.path.exists('diagramas/descentralizacion'):
+		os.mkdir('diagramas/descentralizacion')
 
 	# Revertimos las listas para dibujar mejor el % acumulado de desarrolladores respecto al % acumulado de commits
 	# Asi podremos observar si hay descentralizacion en el diagrama

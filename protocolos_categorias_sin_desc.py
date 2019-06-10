@@ -1,3 +1,4 @@
+import sys
 import os
 import json
 import codigos_hex
@@ -12,7 +13,7 @@ def main():
  	"""Programa que genera diagramas con los protocolos y las categorias principales de OP_RETURN"""
 	
 	# Lugar del que obtenemos las transacciones OP_RETURN en bruto
-	dir = '/home/donvito/Escritorio/metadatos/archivos_formateados/'
+	dir = 'archivos_formateados/'
 
 	# Variables inicializadas que usare
 	inicio = 0
@@ -21,6 +22,10 @@ def main():
 	bloques_con_opreturns = 0
 	bloques_sin_opreturns = 0
 	
+	if "LP_UNKNOWN" in codigos_hex.Codigos.__members__:
+		print 'Comente en codigos_hex.py el ultimo protocolo (LP_UNKNOWN)'
+		sys.exit()
+
 	protocolos_TXs = {}
 	for codigo in codigos_hex.Codigos:
 		if codigo.name not in protocolos_TXs:
@@ -65,9 +70,11 @@ def main():
 	    f.close()  
   	
 	# Si la carpeta no esta creada, genero la carpeta donde se almacenaran los graficos producidos por el programa
-	dir2 = '/home/donvito/Escritorio/metadatos/diagramas/'
-	if not os.path.exists(dir2):
-		os.mkdir(dir2)
+	dir = 'diagramas'
+	if not os.path.exists(dir):
+		os.mkdir(dir)
+	if not os.path.exists('diagramas/opreturn'):
+		os.mkdir('diagramas/opreturn')
 
 
 

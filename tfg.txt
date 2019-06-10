@@ -132,129 +132,7 @@ con desconocidas LP.
 https://github.com/SuperNETorg/komodo/wiki/Setting-up-Liquidity-Provider-(LP)-Node
 
 (A 31 Mayo)
-SIN LP identificado:
-$ protocolos_categorias.py no 
-
-Protocolo - num-TXs:
-UNKNOWN  -  13330551
-OMNI  -  8998895
-COLU  -  251711
-OPENASSETS  -  241859
-BLOCKSTORE  -  236574
-FACTOM  -  199044
-MONEGRAPH  -  79151
-STAMPERY  -  72090
-ASCRIBE  -  58547
-COINSPARK  -  29670
-SMARTBIT  -  10025
-ETERNITYWALL  -  8580
-PROOFOFEXISTENCE  -  7432
-BLOCKSIGN  -  2957
-NICOSIA  -  2897
-STAMPD  -  2468
-ORIGINALMY  -  2435
-REMEMBR  -  2313
-BITPROOF  -  1567
-BLOCKAI  -  1080
-LAPREUVE  -  848
-COUNTERPARTY  -  840
-PROVEBIT  -  835
-CRYPTOCOPYRIGHT  -  816
-TRADLE  -  780
-
-Categoria - num-TXs:
-BIENES  -  9522975
-UNKNOWN  -  13330551
-DOCUMENTOS NOTARIALES  -  296482
-ARTE DIGITAL  -  138778
-OTROS  -  255179
-
-Certificaciones - num-TXs:
-SI  -  9958235
-DESC  -  13330551
-NO  -  255179
-
-Protocolo - tamano-TXs:
-UNKNOWN  -  950196400 bytes
-OMNI  -  178763801 bytes
-FACTOM  -  7961862 bytes
-BLOCKSTORE  -  7277800 bytes
-COLU  -  4506969 bytes
-OPENASSETS  -  3912012 bytes
-MONEGRAPH  -  2877348 bytes
-STAMPERY  -  2449238 bytes
-ASCRIBE  -  1175004 bytes
-COINSPARK  -  963724 bytes
-SMARTBIT  -  308659 bytes
-PROOFOFEXISTENCE  -  268459 bytes
-ETERNITYWALL  -  248746 bytes
-BLOCKSIGN  -  57118 bytes
-BITPROOF  -  34237 bytes
-STAMPD  -  31084 bytes
-BLOCKAI  -  13450 bytes
-ORIGINALMY  -  8348 bytes
-NICOSIA  -  4820 bytes
-LAPREUVE  -  4767 bytes
-PROVEBIT  -  4402 bytes
-REMEMBR  -  4128 bytes
-COUNTERPARTY  -  3886 bytes
-CRYPTOCOPYRIGHT  -  3735 bytes
-TRADLE  -  2385 bytes
-
-Categorias - tamano-TXs:
-BIENES  -  188150392 bytes
-UNKNOWN  -  950196400 bytes
-DOCUMENTOS NOTARIALES  -  10834583 bytes
-ARTE DIGITAL  -  4065802 bytes
-OTROS  -  7835205 bytes
-
-Certificaciones - tamano-TXs:
-SI  -  203050777 bytes
-DESC  -  950196400 bytes
-NO  -  7835205 bytes
-
-Protocolo - media-TX:
-ASCRIBE  -  20.07 bytes/tx
-BITPROOF  -  21.85 bytes/tx
-BLOCKAI  -  12.45 bytes/tx
-BLOCKSIGN  -  19.32 bytes/tx
-BLOCKSTORE  -  30.76 bytes/tx
-COINSPARK  -  32.48 bytes/tx
-COLU  -  17.91 bytes/tx
-COUNTERPARTY  -  4.63 bytes/tx
-CRYPTOCOPYRIGHT  -  4.58 bytes/tx
-ETERNITYWALL  -  28.99 bytes/tx
-FACTOM  -  40.0 bytes/tx
-LAPREUVE  -  5.62 bytes/tx
-MONEGRAPH  -  36.35 bytes/tx
-NICOSIA  -  1.66 bytes/tx
-OMNI  -  19.87 bytes/tx
-OPENASSETS  -  16.17 bytes/tx
-ORIGINALMY  -  3.43 bytes/tx
-PROOFOFEXISTENCE  -  36.12 bytes/tx
-PROVEBIT  -  5.27 bytes/tx
-REMEMBR  -  1.78 bytes/tx
-SMARTBIT  -  30.79 bytes/tx
-STAMPD  -  12.59 bytes/tx
-STAMPERY  -  33.97 bytes/tx
-TRADLE  -  3.06 bytes/tx
-UNKNOWN  -  71.28 bytes/tx
-
-INFORMACION RESUMIDA:
-Bloques procesados: 578704
-Bloques con TXs OP_RETURN: 223064
-Bloques sin TXs OP_RETURN: 355640
-Numero de Protocolos Conocidos: 24
-TXs Reconocidas: 10213414
-TXs Desconocidas: 13330551
-Total TXs OP_RETURN: 23543965
-Tamano Total: 1161082382.0 bytes
-Tamano Medio TX: 49.32 bytes/tx
-
----------------------------------------------------------------------------------------------------------
-(A 31 Mayo)
-CON LP identificado:
-$ protocolos_categorias_LP.py yes
+$ protocolos_categorias.py
 
 Protocolo - num-TXs:
 LP_UNKNOWN  -  10802703
@@ -541,17 +419,8 @@ $ protocolos_gini.py
 $ protocolos_gini.py txs
 Coeficiente de  Gini de Protocolos - #TXs: 0.910726192466
 
-
-$ protocolos_gini.py txs_LP
-Coeficiente de  Gini de Protocolos - #TXs (con LP): 0.893671127962
-
-
 $ protocolos_gini.py tamano
 Coeficiente de  Gini de Protocolos - Tamano TXs: 0.938072840141
-
-
-$ protocolos_gini.py tamano_LP
-Coeficiente de  Gini de Protocolos - Tamano TXs (con LP): 0.926926142474
 
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -670,7 +539,7 @@ Coeficiente de  Gini de Direcciones - Bitcoins: 0.428420996961
 ----------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------
 STATS CHARTS desde https://www.blockchain.com/charts (9 Junio)
-Blockchain Size - 222GBs 
+Blockchain Size - 231 
 Average Number Of Transactions Per Block - 2500 TXs/bloque
 Average Block Size - ~1,2MBs
 Total Number of Transactions - ~400000000 TXs

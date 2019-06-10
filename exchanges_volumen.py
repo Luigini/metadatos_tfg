@@ -9,7 +9,7 @@ def main():
 	
 	# Comprobamos que argumento nos pasan por parametro para usar uno u otro archivo de datos
 	if len(sys.argv) == 1 or len(sys.argv) > 2:
-		print 'Ejecuta el programa con uno de estos argumentos: 1d, 1m, 5y'
+		print 'Ejecuta el programa con uno de estos argumentos: 1d, 1m, 2y'
 		sys.exit()
 	elif sys.argv[1] == '1d':
 		archivo_entrada = 'exchanges_volumen_1d.data'
@@ -32,7 +32,7 @@ def main():
 	acumula_volumen = []
 	
 	# Los datos que he parseado los he obtenido desde la web https://data.bitcoinity.org/markets/exchanges/USD/30d
-	with open('/home/donvito/Escritorio/metadatos/data/' + archivo_entrada) as f:
+	with open('data/' + archivo_entrada) as f:
 		while True:
 			line = f.readline()
 			# Longitud cero indica final de fichero
@@ -50,9 +50,11 @@ def main():
 	print 'Volumen Total (BTC):', volumen_total 
 
 	# Si la carpeta no esta creada, genero la carpeta donde se almacenaran los graficos producidos por el programa
-	dir = '/home/donvito/Escritorio/metadatos/diagramas/descentralizacion'
+	dir = 'diagramas'
 	if not os.path.exists(dir):
 		os.mkdir(dir)
+	if not os.path.exists('diagramas/descentralizacion'):
+		os.mkdir('diagramas/descentralizacion')	
 
 	# DIAGRAMA CIRCULAR EXCHANGES - VOLUMEN
 	plotly.offline.plot({

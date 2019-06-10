@@ -11,21 +11,9 @@ def contador(nombre_numero):
 
 def main():
 	"""Programa que genera diagramas con los protocolos y las categorias principales de OP_RETURN"""
-	
-	# Comprobamos que argumento nos pasan por parametro para usar uno u otro archivo de datos
-	if len(sys.argv) == 1 or len(sys.argv) > 2:
-		print 'Ejecuta el programa con uno de estos argumentos (si/no), segun si quieres identificar TXs LP o no'
-		print '(Comentar en codigos_hex LP, dependiendo de (si/no))'
-		sys.exit()
-	elif sys.argv[1] == 'si':
-		archivo_salida = '_LP'
-	elif sys.argv[1] == 'no':
-		archivo_salida = ''
-	else:
-		sys.exit()
 
 	# Lugar del que obtenemos las transacciones OP_RETURN en bruto
-	dir = '/home/donvito/Escritorio/metadatos/archivos_formateados/'
+	dir = 'archivos_formateados/'
 
 	# Variables inicializadas que usare
 	inicio = 0
@@ -33,7 +21,11 @@ def main():
 	reconocidas = 0
 	bloques_con_opreturns = 0
 	bloques_sin_opreturns = 0
-	
+
+	if "LP_UNKNOWN" not in codigos_hex.Codigos.__members__:
+		print 'Descomente en codigos_hex.py el ultimo protocolo (LP_UNKNOWN)'
+		sys.exit()
+
 	protocolos_TXs = {}
 	for codigo in codigos_hex.Codigos:
 		if codigo.name not in protocolos_TXs:
@@ -88,10 +80,11 @@ def main():
 		f.close()  
 	
 	# Si la carpeta no esta creada, genero la carpeta donde se almacenaran los graficos producidos por el programa
-	dir2 = '/home/donvito/Escritorio/metadatos/diagramas/'
-	if not os.path.exists(dir2):
-		os.mkdir(dir2)
-
+	dir = 'diagramas'
+	if not os.path.exists(dir):
+		os.mkdir(dir)
+	if not os.path.exists('diagramas/opreturn'):
+		os.mkdir('diagramas/opreturn')
 
 
 	# GRAFICO CIRCULAR PROTOCOLOS-TXS por numero de transacciones
@@ -101,7 +94,7 @@ def main():
 	num_TXs = []
 
 	# Creo un fichero de datos para utilizarlo con otro programa de descentralizacion mas adelante
-	with open('/home/donvito/Escritorio/metadatos/data/protocolos_TXs'+archivo_salida+'.data','w') as f:
+	with open('data/protocolos_TXs.data','w') as f:
 		f.close()
 	
 	# Convierto la estructura diccionario en listas para dibujar el grafico
@@ -112,7 +105,7 @@ def main():
 		# Muestro por pantalla
 		print nombre,' - ', numero
 		# Relleno el fichero anteriormente creado de datos.
-		with open('/home/donvito/Escritorio/metadatos/data/protocolos_TXs'+archivo_salida+'.data','a') as f:
+		with open('data/protocolos_TXs.data','a') as f:
 			f.write(str(nombre)+' '+str(numero)+'\n')
 			f.close()
 
@@ -120,7 +113,7 @@ def main():
 	plotly.offline.plot({
 		"data": [go.Pie(labels=protocolos, values=num_TXs, hoverinfo='label+value', textinfo='label+percent')],
 		"layout": go.Layout(title="Protocolos/Numero Transacciones")
-		},filename='diagramas/opreturn/protocolos-TXs-numero'+archivo_salida+'.html', auto_open=True)
+		},filename='diagramas/opreturn/protocolos-TXs-numero.html', auto_open=True)
 
 	# GRAFICO CIRCULAR CATEGORIAS-TXS y CERTIFICACIONES-TXs por numero de transacciones
 	# Inicializamos los categorias en las que vamos agrupar los protocolos
@@ -174,7 +167,7 @@ def main():
 	plotly.offline.plot({
 		"data": [go.Pie(labels=categorias, values=num_categorias, hoverinfo='label+value', textinfo='label+percent')],
 		"layout": go.Layout(title="Categorias/Numero Transacciones")
-		},filename='diagramas/opreturn/categorias-TXs-numero'+archivo_salida+'.html', auto_open=True)
+		},filename='diagramas/opreturn/categorias-TXs-numero.html', auto_open=True)
 
 	# CERTIFICACIONES
 	certificaciones = []
@@ -190,7 +183,7 @@ def main():
 	plotly.offline.plot({
 		"data": [go.Pie(labels=certificaciones, values=num_certificaciones, hoverinfo='label+value', textinfo='label+percent')],
 		"layout": go.Layout(title="Transacciones (Numero) que certifican informacion")
-		},filename='diagramas/opreturn/certificaciones-TXs-numero'+archivo_salida+'.html', auto_open=True)	
+		},filename='diagramas/opreturn/certificaciones-TXs-numero.html', auto_open=True)	
 
 
 
@@ -201,7 +194,7 @@ def main():
 	tamano_TXs = []
 
 	# Creo un fichero de datos para utilizarlo con otro programa de descentralizacion mas adelante
-	with open('/home/donvito/Escritorio/metadatos/data/protocolos_Tamano'+archivo_salida+'.data','w') as f:
+	with open('data/protocolos_Tamano.data','w') as f:
 		f.close()
 
 	# Convierto la estructura diccionario en listas para dibujar el grafico
@@ -212,7 +205,7 @@ def main():
 		# Muestro por pantalla
 		print nombre, ' - ', numero, 'bytes'
 		# Relleno el fichero anteriormente creado de datos.
-		with open('/home/donvito/Escritorio/metadatos/data/protocolos_Tamano'+archivo_salida+'.data','a') as f:
+		with open('data/protocolos_Tamano.data','a') as f:
 			f.write(str(nombre)+' '+str(numero)+'\n')
 			f.close()
 
@@ -220,7 +213,7 @@ def main():
 	plotly.offline.plot({
 		"data": [go.Pie(labels=protocolos2, values=tamano_TXs, hoverinfo='label+value', textinfo='label+percent')],
 		"layout": go.Layout(title="Protocolos/Tamano Transacciones")
-		},filename='diagramas/opreturn/protocolos-TXs-tamano'+archivo_salida+'.html', auto_open=True)
+		},filename='diagramas/opreturn/protocolos-TXs-tamano.html', auto_open=True)
 
 	# GRAFICO CIRCULAR CATEGORIAS-TXS y CERTIFICACIONES-TXs por tamano de las transacciones
 	# Inicializamos los categorias en las que vamos agrupar los protocolos
@@ -274,7 +267,7 @@ def main():
 	plotly.offline.plot({
 		"data": [go.Pie(labels=categorias, values=tamano_categorias, hoverinfo='label+value', textinfo='label+percent')],
 		"layout": go.Layout(title="Categorias/Tamano Transacciones")
-		},filename='diagramas/opreturn/categorias-TXs-tamano'+archivo_salida+'.html', auto_open=True)	
+		},filename='diagramas/opreturn/categorias-TXs-tamano.html', auto_open=True)	
 
 	# CERTIFICACIONES
 	certificaciones = []
@@ -290,7 +283,7 @@ def main():
 	plotly.offline.plot({
 		"data": [go.Pie(labels=certificaciones, values=tamano_certificaciones, hoverinfo='label+value', textinfo='label+percent')],
 		"layout": go.Layout(title="Transacciones (Tamano) que certifican informacion")
-		},filename='diagramas/opreturn/certificaciones-TXs-tamano'+archivo_salida+'.html', auto_open=True)
+		},filename='diagramas/opreturn/certificaciones-TXs-tamano.html', auto_open=True)
 
 	# GRAFICO CIRCULAR PROTOCOLOS-TXS por tamano medio de TXs
 	media_TX = []
@@ -322,7 +315,7 @@ def main():
 	plotly.offline.plot({
 		"data": [go.Pie(labels=nombre_protocolos, values=media_TX, hoverinfo='label+value', textinfo='label+value')],
 		"layout": go.Layout(title="Protocolos Tamano Medio TX")
-		},filename='diagramas/opreturn/protocolos-tamano-medio-TXs'+archivo_salida+'.html', auto_open=True)
+		},filename='diagramas/opreturn/protocolos-tamano-medio-TXs.html', auto_open=True)
 
 
 

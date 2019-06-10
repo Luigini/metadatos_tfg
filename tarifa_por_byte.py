@@ -13,7 +13,7 @@ def main():
 	- Generacion de un diagrama de barras con el numero de TXs por cada tamano medio de TX"""
 	
 	# Lugar del que obtenemos las transacciones OP_RETURN en bruto
-	dir = '/home/donvito/Escritorio/metadatos/archivos_formateados/'
+	dir = 'archivos_formateados/'
 
 	# Variables inicializadas que usare
 	inicio = 0
@@ -73,9 +73,11 @@ def main():
 		f.close() 
 
 	# Si la carpeta no esta creada, genero la carpeta donde se almacenaran los graficos producidos por el programa
-	dir2 = '/home/donvito/Escritorio/metadatos/diagramas/'
-	if not os.path.exists(dir2):
-		os.mkdir(dir2)
+	dir = 'diagramas'
+	if not os.path.exists(dir):
+		os.mkdir(dir)
+	if not os.path.exists('diagramas/opreturn'):
+		os.mkdir('diagramas/opreturn')
 
 	# Imprimimos la informacion que necesitamos
 	print 'Total acumulado de las tarifas: {0:.4f}'.format(total_tarifas), 'BTC'

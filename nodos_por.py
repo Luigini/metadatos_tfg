@@ -37,7 +37,7 @@ def main():
 	
 	# Los datos que he parseado los he obtenido desde la web https://bitnodes.earn.com/nodes/
 	# El sabado 8 de Junio a las 14:00:10
-	with open('/home/donvito/Escritorio/metadatos/data/' + archivo_entrada) as f:
+	with open('data/' + archivo_entrada) as f:
 		while True:
 			line = f.readline()
 			# Longitud cero indica final de fichero
@@ -63,9 +63,11 @@ def main():
 	print 'Numero total de Nodos publicos (alcanzables) en Bitcoin:', nodos_totales
 
 	# Si la carpeta no esta creada, genero la carpeta donde se almacenaran los graficos producidos por el programa
-	dir = '/home/donvito/Escritorio/metadatos/diagramas/descentralizacion'
+	dir = 'diagramas'
 	if not os.path.exists(dir):
 		os.mkdir(dir)
+	if not os.path.exists('diagramas/descentralizacion'):
+		os.mkdir('diagramas/descentralizacion')
 
 	# DIAGRAMA CIRCULAR NODOS RESPECTO A LO QUE SE PIDA POR COMANDOS
 	data = go.Pie(labels=nombres, values=nodos, hoverinfo='label+value', textinfo='label+percent')

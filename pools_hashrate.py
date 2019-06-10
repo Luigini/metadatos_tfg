@@ -38,7 +38,7 @@ def main():
 	acumula_bloques_minados = []
 	
 	# Los datos que he parseado los he obtenido desde la web https://btc.com/stats/pool
-	with open('/home/donvito/Escritorio/metadatos/data/' + archivo_entrada) as f:
+	with open('data/' + archivo_entrada) as f:
 		while True:
 			line = f.readline()
 			# Longitud cero indica final de fichero
@@ -58,9 +58,11 @@ def main():
 	print 'Numero de bloques minados:', bloques_minados_total
 
 	# Si la carpeta no esta creada, genero la carpeta donde se almacenaran los graficos producidos por el programa
-	dir = '/home/donvito/Escritorio/metadatos/diagramas/descentralizacion'
+	dir = 'diagramas'
 	if not os.path.exists(dir):
 		os.mkdir(dir)
+	if not os.path.exists('diagramas/descentralizacion'):
+		os.mkdir('diagramas/descentralizacion')
 
 	# DIAGRAMA CIRCULAR POOLS - HASHRATE
 	data = go.Pie(labels=nombres_pools, values=hashrate, hoverinfo='label+value', textinfo='label+percent')

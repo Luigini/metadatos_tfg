@@ -9,20 +9,14 @@ def main():
 	
 	# Comprobamos que argumento nos pasan por parametro para usar uno u otro archivo de datos
 	if len(sys.argv) == 1 or len(sys.argv) > 2:
-		print 'Ejecuta el programa con uno de estos argumentos: txs, txs_LP, tamano o tamano_LP'
+		print 'Ejecuta el programa con uno de estos argumentos: txs o tamano'
 		sys.exit()
 	elif sys.argv[1] == 'txs':
 		archivo_entrada = 'protocolos_TXs.data'
 		archivo_salida = 'txs'
-	elif sys.argv[1] == 'txs_LP':
-		archivo_entrada = 'protocolos_TXs_LP.data'
-		archivo_salida = 'txs_LP'
 	elif sys.argv[1] == 'tamano':
 		archivo_entrada = 'protocolos_Tamano.data'
 		archivo_salida = 'tamano'
-	elif sys.argv[1] == 'tamano_LP':
-		archivo_entrada = 'protocolos_Tamano_LP.data'
-		archivo_salida = 'tamano_LP'
 	else:
 		sys.exit()
 
@@ -35,7 +29,7 @@ def main():
 	acumula_txs_tamano = []
 	
 	# Los datos que parseo los he obtenido de los programas protocolos_categorias.py  y protocolos_categorias_sin_desc.py
-	with open('/home/donvito/Escritorio/metadatos/data/' + archivo_entrada) as f:
+	with open('data/' + archivo_entrada) as f:
 		while True:
 			line = f.readline()
 			# Longitud cero indica final de fichero
@@ -71,13 +65,9 @@ def main():
 	# Segun la opcion que haya elegido el usuario, se imprimiran unos datos u otros
 	if sys.argv[1] == 'txs':
 		print 'Coeficiente de  Gini de Protocolos - #TXs:', abs(1 - coef_nombres_txs_tamano)
-	elif sys.argv[1] == 'txs_LP':
-		print 'Coeficiente de  Gini de Protocolos - #TXs (con LP):', abs(1 - coef_nombres_txs_tamano)
 	elif sys.argv[1] == 'tamano':
 		print 'Coeficiente de  Gini de Protocolos - Tamano TXs:', abs(1 - coef_nombres_txs_tamano)
-	elif sys.argv[1] == 'tamano_LP':	
-		print 'Coeficiente de  Gini de Protocolos - Tamano TXs (con LP):', abs(1 - coef_nombres_txs_tamano)
-
+	
 	# DIAGRAMA DE BARRAS %ACUMULADO PROTOCOLOS RESPECTO AL %ACUMULADO DE LO QUE SE PIDA POR COMANDOS
 	traza = go.Bar(x=acumula_nombres, y=acumula_txs_tamano,  hoverinfo='x+y')
 	layout = {

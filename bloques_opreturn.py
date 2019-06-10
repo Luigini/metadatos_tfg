@@ -7,7 +7,7 @@ def main():
     """Programa para obtener los bloques de Bitcoin"""
     
     # Directorio donde guardaremos los bloques
-    dir = '/home/donvito/Escritorio/metadatos/archivos_formateados/'
+    dir = 'archivos_formateados/'
     if not os.path.exists(dir):
         os.mkdir(dir)
 

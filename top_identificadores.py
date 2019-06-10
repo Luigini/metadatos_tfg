@@ -10,11 +10,11 @@ def main():
  	"""Programa que devuelve los 2 primeros bytes en hexadecimal de los protocolos mas repetidos en las transacciones OP_RETURN"""
 	
 	# Lugar del que obtenemos las transacciones OP_RETURN en bruto
-	dir = '/home/donvito/Escritorio/metadatos/archivos_formateados/'
+	dir = 'archivos_formateados/'
 
 	# Variables inicializadas que usare
 	inicio = 0;
-	final =  578704 #578703
+	final =  300000 #578703
 	codigos = {}
 	
 	# Cargar contenido archivos

@@ -16,7 +16,7 @@ def main():
 	acumula_bitcoins = []
 	
 	# Los datos que he parseado los he obtenido desde la web https://bitinfocharts.com/top-100-richest-bitcoin-addresses.html
-	with open('/home/donvito/Escritorio/metadatos/data/top_direcciones_propiedades.data') as f:
+	with open('data/top_350direcciones_5000bitcoins.data') as f:
 		while True:
 			line = f.readline()
 			# Longitud cero indica final de fichero
@@ -35,9 +35,11 @@ def main():
 	print 'Numero total de bitcoins:', numero_bitcoins
 
 	# Si la carpeta no esta creada, genero la carpeta donde se almacenaran los graficos producidos por el programa
-	dir = '/home/donvito/Escritorio/metadatos/diagramas/descentralizacion'
+	dir = 'diagramas'
 	if not os.path.exists(dir):
 		os.mkdir(dir)
+	if not os.path.exists('diagramas/descentralizacion'):
+		os.mkdir('diagramas/descentralizacion')
 
 	# Revertimos las listas para dibujar mejor el % acumulado de direcciones respecto al % acumulado de bitcoins
 	# Asi podremos observar si hay descentralizacion en el diagrama
