@@ -17,7 +17,7 @@ def main():
 
 	# Variables inicializadas que usare
 	inicio = 0
-	final =  578704 #578703
+	final =  300000 #578703
 	reconocidas = 0
 	bloques_con_opreturns = 0
 	bloques_sin_opreturns = 0
@@ -75,7 +75,7 @@ def main():
 			else:
 				bloques_sin_opreturns = bloques_sin_opreturns + 1
 
-			#print i
+			print i
 
 		f.close()  
 	
