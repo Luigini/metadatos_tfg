@@ -21,7 +21,7 @@ _Basta con tener instalado Python 2.7_
 
 ### Instalación 🔧
 
-Si quieres analizar las tranasacciones OP_RETURN (primer apartado del estudio), debes ejecutar el archivo bloques_opreturn.py para obtener los datos en formato .json
+Si quieres analizar las transacciones OP_RETURN (primer apartado del estudio), debes ejecutar el archivo bloques_opreturn.py para obtener los datos en formato .json
 
 ```
 $ python bloques_opreturn.py
