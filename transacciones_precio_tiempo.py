@@ -62,18 +62,59 @@ def main():
   					18945930,20475155,19252972,22985212,25120209,30666017,25721328,15053503,15875972,16049120,
   					17011572,15872364,17340552,18137363,17790418,19359440,20077263,20203575,22242070,22204466,
   					23729106,27612620,30280871];
-	
-	# DIAGRAMA LINEAL por meses comparando #TXs OP_RETURN respecto a #TXs BITCOIN desde inicio OP_RETURN
-	# Posible uso de GAPS y NO GAPS para espacios entra las dos graficas de #TXs OP_RETURN vs #TXs BITCOIN
-	traza1 = go.Scatter(x=fechas, y=transacciones, mode='lines+markers', hoverinfo='x+y', name='TXs OP_RETURN')
-   	traza2 = go.Scatter(x=fechas, y=num_TXs_Bitcoin, mode='lines+markers', hoverinfo='x+y', name='TXs BITCOIN')
+	precio_bitcoin = []
 
-  	# Dibujo el diagrama de lineas ayudandome de la libreria plotly
-  	plotly.offline.plot({
-    	"data": [traza1, traza2],
-    	"layout": go.Layout(title="Transacciones por mes", autosize=True,
-    		 xaxis=go.layout.XAxis(tickvals=fechas, tickformat = '%m-%Y'))
-		},filename='diagramas/opreturn/transacciones_mes.html', auto_open=True, )	
+	# Los datos que he parseado los he obtenido desde la web https://es.investing.com/crypto/bitcoin/btc-usd-historical-data
+	with open('data/historico_bitcoin.data') as f:
+		while True:
+			line = f.readline()
+			# Longitud cero indica final de fichero
+			if len(line) == 0:
+				break
+			#Partimos la linea y guardamos el precio de Bitcoin cada mes
+			lista = line.split()
+			precio_bitcoin.append(float(lista[1]))
+
+	# DIAGRAMA LINEAL comparando #TXs OP_RETURN respecto a #TXs BITCOIN desde el inicio OP_RETURN,
+	# Ademas dibujo la evolucion del precio de Bitcoin en ese tiempo mediante otro eje
+	eje_x = []
+	for i in range(len(fechas)):
+		eje_x.append(i)
+
+	traza1 = go.Scatter(x=eje_x, y=transacciones, mode='lines+markers', hoverinfo='y', name='TXs OP_RETURN')
+	traza2 = go.Scatter(x=eje_x, y=num_TXs_Bitcoin, mode='lines+markers', hoverinfo='y', name='TXs BITCOIN')
+	traza3 = go.Scatter(x=eje_x, y=precio_bitcoin, mode='lines+markers', hoverinfo='y', name='Precio_BITCOIN($)', 
+		yaxis='y2', line = dict(color = ('rgb(203, 50, 52)'), width = 4))
+
+	layout = {
+		'title' : { 
+			'text' : "TXs Bitcoin, TXs OP_RETURN y Evolucion del Precio en $ de Bitcoin",
+			'font' : dict(size=40)	
+		},
+		'xaxis': {
+			'tickfont' : dict(size=25),
+        	'tickmode' : 'array',
+       		'tickvals' : [0, 8, 19, 31, 43, 55, 67, 72],
+        	'ticktext' : ['Marzo13','2014','2015','2016','2017','2018','2019','Mayo19']
+	    },
+	    'yaxis': {
+	    	'title' : 'Numero de Transacciones (Millones)',
+			'titlefont' : dict(size=30),
+			'tickfont' : dict(size=20)
+	    },
+	    'yaxis2': {
+	    	'title' : 'Precio Bitcoin ($)',
+			'titlefont' : dict(size=30, color='rgb(203, 50, 52)'),
+			'tickfont' : dict(size=20, color='rgb(203, 50, 52)'),
+	        'overlaying' : 'y',
+        	'side' : 'right'
+	    }
+	}
+	fig = {
+	    'data': [traza2, traza3, traza1],
+	    'layout': layout,
+	}
+	plotly.offline.plot(fig,filename='diagramas/opreturn/transacciones_precio_tiempo.html', auto_open=True)	
 
 if __name__ == '__main__':
   main()
