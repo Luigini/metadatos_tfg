@@ -69,7 +69,7 @@ def main():
 					else:
 						tamano_TX_medio [bytes_transaccion] = tamano_TX_medio [bytes_transaccion] + 1
 
-			#print i
+			print 'Bloque',i, 'leido'
 
 		f.close() 
 
@@ -153,13 +153,6 @@ def main():
 	    'layout': layout,
 	}
 	plotly.offline.plot(fig,filename='diagramas/opreturn/tamano_TX_medio.html', auto_open=True)	
-
-	#plotly.offline.plot({
-	#	"data": [go.Bar(x=tamanos, y=num_TXs, hoverinfo='x+y')],
-	#	"layout": go.Layout(title="Numero TXs / Tamano Medio de TX", autosize=True,
-	#		 xaxis=go.layout.XAxis(tickvals=tamanos))
-	#	},filename='diagramas/opreturn/tamano_TX_medio.html', auto_open=True, )	
-
 
 
 if __name__ == '__main__':

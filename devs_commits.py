@@ -38,6 +38,8 @@ def main():
 		os.mkdir(dir)
 	if not os.path.exists('diagramas/descentralizacion'):
 		os.mkdir('diagramas/descentralizacion')
+	if not os.path.exists('diagramas/descentralizacion/anexos'):
+		os.mkdir('diagramas/descentralizacion/anexos')	
 
 	# Revertimos las listas para dibujar mejor el % acumulado de desarrolladores respecto al % acumulado de commits
 	# Asi podremos observar si hay descentralizacion en el diagrama
@@ -49,14 +51,42 @@ def main():
 	plotly.offline.plot({
 		"data": [data],
 		"layout": go.Layout(title="Desarrolladores/Porcentaje de Commits (Desde 2009)", autosize=True)
-		},filename='diagramas/descentralizacion/devs_commits.html', auto_open=True)	
+		},filename='diagramas/descentralizacion/anexos/devs_commits.html', auto_open=True)	
 
 	# DIAGRAMA CIRCULAR TOP 25 DESARROLLADOR - COMMITS
 	data = go.Bar(x=nombres_contribuidores[0:24], y=numero_commits[0:24], hoverinfo='x+y')
 	plotly.offline.plot({
 		"data": [data],
 		"layout": go.Layout(title="Top 25 Desarrolladores/Numero Commits (Desde 2009)", autosize=True)
-		},filename='diagramas/descentralizacion/devs_commits_top25.html', auto_open=True)	
+		},filename='diagramas/descentralizacion/anexos/devs_commits_top25.html', auto_open=True)	
+
+
+
+	# DIAGRAMA CIRCULAR TOP 10 DESARROLLADOR - COMMITS
+	traza = go.Bar(x=nombres_contribuidores[0:9], y=numero_commits[0:9], hoverinfo='x+y')
+	layout = {
+		'title' : { 
+			'text' : "TOP 10 Desarroladores / Numero de Commits",
+			'font' : dict(size=40)
+		},
+		'xaxis': {
+			'title' : 'TOP 10 Desarroladores',
+			'titlefont' : dict(size=25),
+			'tickfont' : dict(size=20)
+	    },
+	    'yaxis': {
+	    	'title' : 'Numero de Commits',
+			'titlefont' : dict(size=25),
+			'tickfont' : dict(size=20),
+	    }
+	}
+	fig = {
+	    'data': [traza],
+	    'layout': layout,
+	}
+	plotly.offline.plot(fig,filename='diagramas/descentralizacion/devs_commits_top10.html', auto_open=True)	
+
+
 
 	# Ahora hallo el porcentaje acumulado en el numero de desarrolladores y el porcentaje acumulado de commits
 	while i < len(nombres_contribuidores):
@@ -72,20 +102,28 @@ def main():
 			coeficiente = coeficiente + ((acumula_contribuidores[i] - acumula_contribuidores[i-1])*(acumula_commits[i] + acumula_commits [i-1]))
 		i= i+1
 
-	print 'Coeficiente de  Gini de Desarrolladores - Commits:', abs(1 - coeficiente)
+	print 'Coeficiente de Gini de Desarrolladores - Commits:', abs(1 - coeficiente)
 
 	# DIAGRAMA DE BARRAS %ACUMULADO NUMERO DESARROLLADORES - %ACUMULADO NUMERO COMMITS
 	traza = go.Bar(x=acumula_contribuidores, y=acumula_commits, hoverinfo='x+y')
 	layout = {
+		'title' : { 
+			'text' : "Coeficiente de Gini: " + str(abs(1 - coeficiente)),
+			'font' : dict(size=25)
+		},
 		'xaxis': {
-			'title' : 'Porcentaje acumulado de Desarrolladores de Bitcoin Core',
+			'title' : 'Porecentaje acumulado de Desarrolladores',
 	    	'tickformat': ',.0%',
-    		'range': [0,1.1]
+    		'range': [0,1.1],
+			'titlefont' : dict(size=25),
+			'tickfont' : dict(size=20),
 	    },
 	    'yaxis': {
 	    	'title' : 'Porcentaje acumulado de Commits',
 	    	'tickformat': ',.0%',
-	        'range': [0, 1.1]
+	        'range': [0, 1.1],
+  			'titlefont' : dict(size=25),
+			'tickfont' : dict(size=20),
 	    },
 	    'shapes': [
 	        # Linea Horizontal que marca del 50% de commits acumulado
@@ -97,7 +135,7 @@ def main():
 	            'y1': 0.5,
 	            'line': {
 	                'color': 'rgb(50, 171, 96)',
-	                'width': 2.5,
+	                'width': 2.5,    
 	            },
 	        },
 	        # Linea Vertical que marca el 50% de desarrolladores acumulado
@@ -111,7 +149,19 @@ def main():
 	                'color': 'rgb(50, 171, 96)',
 	                'width': 2.5,
 	            },
-	        }
+	        },
+		    # Linez Diagonal que marca la curva de lorenz de completa igualdad
+	        {
+	            'type': 'line',
+	            'x0': 0,
+	            'y0': 0,
+	            'x1': 1,
+	            'y1': 1,
+	            'line': {
+	                'color': 'rgb(203, 50, 52)',
+	                'width': 3.5,
+	            },
+	        },
 	    ]
 	}
 	fig = {

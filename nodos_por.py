@@ -68,12 +68,15 @@ def main():
 		os.mkdir(dir)
 	if not os.path.exists('diagramas/descentralizacion'):
 		os.mkdir('diagramas/descentralizacion')
+	if not os.path.exists('diagramas/descentralizacion/anexos'):
+		os.mkdir('diagramas/descentralizacion/anexos')		
+
 
 	# DIAGRAMA CIRCULAR NODOS RESPECTO A LO QUE SE PIDA POR COMANDOS
-	data = go.Pie(labels=nombres, values=nodos, hoverinfo='label+value', textinfo='label+percent')
+	data = go.Pie(labels=nombres, values=nodos, textfont=dict(size=18), hoverinfo='label+value', textinfo='label+percent')
 	plotly.offline.plot({
 		"data": [data],
-		"layout": go.Layout(title="Nodos por "+archivo_salida, autosize=True)
+		"layout": go.Layout(title="Nodos por "+archivo_salida, font = dict(size=20), autosize=True)
 	},filename='diagramas/descentralizacion/nodos_por_'+archivo_salida+'.html', auto_open=True)	
 
 	# Revertimos las listas para dibujar mejor el % acumulado de nodos respecto al % acumulado de lo que se nos
@@ -109,15 +112,23 @@ def main():
 	# DIAGRAMA DE BARRAS %ACUMULADO NODOS RESPECTO AL %ACUMULADO DE LO QUE SE PIDA POR COMANDOS
 	traza = go.Bar(x=acumula_nombres, y=acumula_nodos,  hoverinfo='x+y')
 	layout = {
+		'title' : { 
+			'text' : "Coeficiente de Gini: " + str(abs(1 - coef_nombres_nodos)),
+			'font' : dict(size=25)
+		},
 		'xaxis': {
 			'title' : 'Porcentaje acumulado de '+archivo_salida,
 	    	'tickformat': ',.0%',
-    		'range': [0,1.1]
+    		'range': [0,1.1],
+    		'titlefont' : dict(size=25),
+			'tickfont' : dict(size=20),
 	    },
 	    'yaxis': {
 	    	'title' : 'Porcentaje acumulado de Nodos',
 	    	'tickformat': ',.0%',
-	        'range': [0, 1.1]
+	        'range': [0, 1.1],
+    		'titlefont' : dict(size=25),
+			'tickfont' : dict(size=20),
 	    },
 	    'shapes': [
 	        # Linea Horizontal que marca del 50% de hashrate acumulado
@@ -143,7 +154,19 @@ def main():
 	                'color': 'rgb(50, 171, 96)',
 	                'width': 2.5,
 	            },
-	        }
+	        },
+	       	# Linea Diagonal que marca la curva de lorenz de completa igualdad
+	        {
+	            'type': 'line',
+	            'x0': 0,
+	            'y0': 0,
+	            'x1': 1,
+	            'y1': 1,
+	            'line': {
+	                'color': 'rgb(203, 50, 52)',
+	                'width': 3.5,
+	            },
+	        },
 	    ]
 	}
 	fig = {

@@ -4,7 +4,7 @@ _Las tecnologías de blockchain o cadenas de bloques han atraído muchísima ate
 
 _- Análisis de las transacciones con opcode OP_RETURN que agregan datos arbitrarios y permiten almacenar éstos en la cadena de bloques._
 
-_- Estudio de la descentralización de Bitcoin a través de un coeficiente._
+_- Estudio de la descentralización de Bitcoin a través de las curvas de Lorenz y el coeficiente de Gini._
 
 ## Comenzando 🚀
 
@@ -21,11 +21,90 @@ _Basta con tener instalado Python 2.7_
 
 ### Instalación 🔧
 
-Si quieres analizar las transacciones OP_RETURN (primer apartado del estudio), debes ejecutar el archivo bloques_opreturn.py para obtener los datos en formato .json
+_Si quieres analizar las transacciones OP_RETURN (primer apartado del estudio), debes ejecutar el archivo bloques_opreturn.py para obtener los datos en formato .json_
 
 ```
 $ python bloques_opreturn.py
 ```
+
+
+## Ejecutando las pruebas ⚙️
+
+_Ejecuciones de programas que no necesitan sin argumentos_
+
+```
+$ python devs_commits.py 
+```
+
+```
+$ python top_dirs_btc.py 
+```
+
+```
+$ protocolos_categorias.py
+```
+
+```
+$ protocolos_categorias_sin_unknown.py
+```
+
+```
+$ tarifa_por_byte.py
+```
+
+```
+$ transacciones_precio_tiempo.py
+```
+
+
+_Ejecuciones de programas que demandan argumentos_
+
+
+```
+$ python pools_hashrate.py  1d
+```
+
+```
+$ python pools_hashrate.py  1m
+```
+
+```
+$ python pools_hashrate.py  1y
+```
+
+```
+$ python pools_hashrate.py  all
+```
+
+```
+$ python exchanges_volumen.py 1d
+```
+
+```
+$ python exchanges_volumen.py 1m
+```
+
+```
+$ python exchanges_volumen.py 2y
+```
+
+```
+$ python nodos_por.py  cliente
+```
+
+```
+$ python nodos_por.py  cliente_unificados
+```
+
+```
+$ python nodos_por.py  pais
+
+```
+
+```
+$ python nodos_por.py  red
+```
+
 
 ## Autores ✒️
 

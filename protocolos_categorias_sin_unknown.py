@@ -64,7 +64,7 @@ def main():
 	        else:
 	        	bloques_sin_opreturns = bloques_sin_opreturns + 1
 
-	        #print i
+	        print 'Bloque',i, 'leido'
 
 	    f.close()  
   	

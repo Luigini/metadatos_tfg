@@ -63,19 +63,21 @@ def main():
 		os.mkdir(dir)
 	if not os.path.exists('diagramas/descentralizacion'):
 		os.mkdir('diagramas/descentralizacion')
+	if not os.path.exists('diagramas/descentralizacion/anexos'):
+		os.mkdir('diagramas/descentralizacion/anexos')		
 
 	# DIAGRAMA CIRCULAR POOLS - HASHRATE
-	data = go.Pie(labels=nombres_pools, values=hashrate, hoverinfo='label+value', textinfo='label+percent')
+	data = go.Pie(labels=nombres_pools, values=hashrate,  textfont=dict(size=19), hoverinfo='label+value', textinfo='label+percent')
 	plotly.offline.plot({
 		"data": [data],
-		"layout": go.Layout(title="Pools/Hashrate (hash/s)", autosize=True)
+		"layout": go.Layout(title="Pools/Hashrate (hash/s)", font = dict(size=30), autosize=True)
 		},filename='diagramas/descentralizacion/pools_hashrate'+archivo_salida+'.html', auto_open=True)	
 
 	# DIAGRAMA CIRCULAR POOLS - BLOQUES MINADORS
-	data = go.Pie(labels=nombres_pools, values=bloques_minados, hoverinfo='label+value', textinfo='label+percent')
+	data = go.Pie(labels=nombres_pools, values=bloques_minados, textfont=dict(size=19), hoverinfo='label+value', textinfo='label+percent')
 	plotly.offline.plot({
 		"data": [data],
-		"layout": go.Layout(title="Pools/Bloques Minados", autosize=True)
+		"layout": go.Layout(title="Pools/Bloques Minados", font = dict(size=30), autosize=True)
 		},filename='diagramas/descentralizacion/pools_bloques_minados'+archivo_salida+'.html', auto_open=True)	
 
 	# Revertimos las listas para dibujar mejor el % acumulado de pools respecto % acumulado de hashrate y
@@ -110,15 +112,23 @@ def main():
 	# DIAGRAMA DE BARRAS %ACUMULADO NUMERO POOLS - %ACUMULADO DE HASHRATE
 	traza = go.Bar(x=acumula_pools, y=acumula_hashrate,  hoverinfo='x+y')
 	layout = {
+		'title' : { 
+			'text' : "Coeficiente de Gini: " + str(abs(1 - coef_pools_hashrate)),
+			'font' : dict(size=25)
+		},
 		'xaxis': {
 			'title' : 'Porcentaje acumulado de Pools de Bitcoin',
 	    	'tickformat': ',.0%',
-    		'range': [0,1.1]
+    		'range': [0,1.1],
+    		'titlefont' : dict(size=25),
+			'tickfont' : dict(size=20),
 	    },
 	    'yaxis': {
 	    	'title' : 'Porcentaje acumulado de Hashrate',
 	    	'tickformat': ',.0%',
-	        'range': [0, 1.1]
+	        'range': [0, 1.1],
+	        'titlefont' : dict(size=25),
+			'tickfont' : dict(size=20),
 	    },
 	    'shapes': [
 	        # Linea Horizontal que marca del 50% de hashrate acumulado
@@ -143,6 +153,18 @@ def main():
 	            'line': {
 	                'color': 'rgb(50, 171, 96)',
 	                'width': 2.5,
+	            },
+	        },
+	       	# Linea Diagonal que marca la curva de lorenz de completa igualdad
+	        {
+	            'type': 'line',
+	            'x0': 0,
+	            'y0': 0,
+	            'x1': 1,
+	            'y1': 1,
+	            'line': {
+	                'color': 'rgb(203, 50, 52)',
+	                'width': 3.5,
 	            },
 	        }
 	    ]

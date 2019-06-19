@@ -5,8 +5,9 @@ import plotly
 import plotly.graph_objs as go
 
 def main():
- 	"""Diagrama de lineas con las transacciones OP_RETURN acumuladas en cada mes comparadas con las totales 
-	de la blockchain de Bitcoin"""
+ 	"""Programa para realizar un diagrama de doble eje con las transacciones OP_RETURN 
+ 	acumuladas en cada mes comparadas con las totales de la blockchain de Bitcoin y
+ 	la evolucion del precio del dolar estadounidense durante ese tiempo"""
 	
 	# Lugar del que obtenemos las transacciones OP_RETURN en bruto
 	dir = '/home/donvito/Escritorio/metadatos/archivos_formateados/'
@@ -36,7 +37,7 @@ def main():
 	        	else:
 	        		transacciones_bloque[fecha_formateada] = transacciones_bloque[fecha_formateada] + len(datos['op_returns'])
      	  	
-     	  	#print i
+     	  	print 'Bloque',i, 'leido'
 
 	    f.close()  
 

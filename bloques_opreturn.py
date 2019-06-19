@@ -18,13 +18,11 @@ def main():
     #Creacion de archivos .json semejantes a un diccionario
     for i in range (inicio,final):
         bloque = str(i)
-        print(bloque)
    
         # Hacemos una request para obtener el bloque
         peticion = 'http://api.coinsecrets.org/block/' + bloque
         resp = requests.get(peticion)
         #time.sleep(1)
-        #datos = json.loads(resp.content)["op_returns"][1]
         datos_bloque = resp.json()
 
         # Abrimos un archivo y volcamos la informacion formateada
@@ -32,6 +30,7 @@ def main():
             json.dump(datos_bloque, file_dict, indent = 4)
         file_dict.close()
 
+        print 'Bloque',bloque, 'almacenado'
 
 if __name__ == '__main__':
   main()

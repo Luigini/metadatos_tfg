@@ -55,11 +55,14 @@ def main():
 		os.mkdir(dir)
 	if not os.path.exists('diagramas/descentralizacion'):
 		os.mkdir('diagramas/descentralizacion')	
+	if not os.path.exists('diagramas/descentralizacion/anexos'):
+		os.mkdir('diagramas/descentralizacion/anexos')		
+	
 
 	# DIAGRAMA CIRCULAR EXCHANGES - VOLUMEN
 	plotly.offline.plot({
-		"data": [go.Pie(labels=nombres_exchanges, values=volumen, hoverinfo='label+value', textinfo='label+percent')],
-		"layout": go.Layout(title="Exchanges/Volumen (BTC)")
+		"data": [go.Pie(labels=nombres_exchanges, values=volumen,textfont=dict(size=15), hoverinfo='label+value', textinfo='label+percent')],
+		"layout": go.Layout(title="Exchanges/Volumen (BTC)", font = dict(size=20))
 		},filename='diagramas/descentralizacion/exchanges_volumen'+archivo_salida+'.html', auto_open=True)
 
 	# Revertimos las listas para dibujar mejor el % acumulado de exchanges respecto al % acumulado de volumen
@@ -86,15 +89,23 @@ def main():
 	# DIAGRAMA LINEAL %ACUMULADO NUMERO EXCHANGES - %ACUMULADO DE VOLUMEN
 	traza = go.Bar(x=acumula_exchanges, y=acumula_volumen, hoverinfo='x+y')
 	layout = {
+		'title' : { 
+			'text' : "Coeficiente de Gini: " + str(abs(1 - coef_exchanges_volumen)),
+			'font' : dict(size=25)
+		},
 		'xaxis': {
 			'title' : 'Porcentaje acumulado de exchanges de Bitcoin',
 	    	'tickformat': ',.0%',
-    		'range': [0,1.1]
+    		'range': [0,1.1],
+    		'titlefont' : dict(size=25),
+			'tickfont' : dict(size=20),
 	    },
 	    'yaxis': {
 	    	'title' : 'Porcentaje de Volumen (BTC) acumulado',
 	    	'tickformat': ',.0%',
-	        'range': [0, 1.1]
+	        'range': [0, 1.1],
+	        'titlefont' : dict(size=25),
+			'tickfont' : dict(size=20),
 	    },
 		'shapes': [
 	        # Linea Horizontal que marca del 50% de hashrate acumulado
@@ -120,7 +131,19 @@ def main():
 	                'color': 'rgb(50, 171, 96)',
 	                'width': 2.5,
 	            },
-	        }
+	        },
+	       	# Linea Diagonal que marca la curva de lorenz de completa igualdad
+	        {
+	            'type': 'line',
+	            'x0': 0,
+	            'y0': 0,
+	            'x1': 1,
+	            'y1': 1,
+	            'line': {
+	            	'color': 'rgb(203, 50, 52)',
+	            	'width': 3.5,
+	            },
+	        },
 	    ]
 	}
 	fig = {

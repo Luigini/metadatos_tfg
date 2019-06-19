@@ -8,7 +8,6 @@ def main():
 	
 	# Inicializo algunas variables que utilizare despues
 	i = 0
-	
 	direcciones = []
 	acumula_direcciones = []
 	bitcoins = []		
@@ -40,6 +39,8 @@ def main():
 		os.mkdir(dir)
 	if not os.path.exists('diagramas/descentralizacion'):
 		os.mkdir('diagramas/descentralizacion')
+	if not os.path.exists('diagramas/descentralizacion/anexos'):
+		os.mkdir('diagramas/descentralizacion/anexos')		
 
 	# Revertimos las listas para dibujar mejor el % acumulado de direcciones respecto al % acumulado de bitcoins
 	# Asi podremos observar si hay descentralizacion en el diagrama
@@ -65,15 +66,23 @@ def main():
 	# DIAGRAMA DE BARRAS %ACUMULADO NUMERO DIRECCIONES - %ACUMULADO NUMERO BITCOINS
 	traza = go.Bar(x=acumula_direcciones, y=acumula_bitcoins, hoverinfo='x+y')
 	layout = {
+		'title' : { 
+			'text' : "Coeficiente de Gini: " + str(abs(1 - coeficiente)),
+			'font' : dict(size=25)
+		},
 		'xaxis': {
 			'title' : 'Porcentaje acumulado de Direcciones Bitcoin',
 	    	'tickformat': ',.0%',
-    		'range': [0,1.1]
+    		'range': [0,1.1],
+    		'titlefont' : dict(size=25),
+			'tickfont' : dict(size=20),
 	    },
 	    'yaxis': {
 	    	'title' : 'Porcentaje acumulado de bitcoins',
 	    	'tickformat': ',.0%',
-	        'range': [0, 1.1]
+	        'range': [0, 1.1],
+    		'titlefont' : dict(size=25),
+			'tickfont' : dict(size=20),
 	    },
 	    'shapes': [
 	        # Linea Horizontal que marca del 50% de commits acumulado
@@ -98,6 +107,18 @@ def main():
 	            'line': {
 	                'color': 'rgb(50, 171, 96)',
 	                'width': 2.5,
+	            },
+	        },
+	       	# Linea Diagonal que marca la curva de lorenz de completa igualdad
+	        {
+	            'type': 'line',
+	            'x0': 0,
+	            'y0': 0,
+	            'x1': 1,
+	            'y1': 1,
+	            'line': {
+	                'color': 'rgb(203, 50, 52)',
+	                'width': 3.5,
 	            },
 	        }
 	    ]
